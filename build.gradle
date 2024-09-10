@@ -1,0 +1,73 @@
+buildscript {
+    dependencies {
+        classpath "org.flywaydb:flyway-mysql:10.7.1"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'college.pb'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+//    Configuration and Utilities:
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+//    Database Related:
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+//    implementation 'org.flywaydb:flyway-core'
+//    implementation 'org.flywaydb:flyway-mysql'
+
+//    MapStruct:
+    implementation 'org.mapstruct:mapstruct:1.6.0'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
+
+//    Documentation:
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+//    implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
+
+//    Docker:
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+//    Axon
+    implementation('org.axonframework:axon-spring-boot-starter:4.10.0')
+//            {
+//        exclude group: 'org.axonframework', module: 'axon-server-connector'
+//    }
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

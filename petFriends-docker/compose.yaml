@@ -1,0 +1,10 @@
+services:
+  petFriends-mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: pet_friends
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: verySecret
+      MYSQL_USER: tauber
+    ports:
+      - '3306:3306'

@@ -1,0 +1,51 @@
+server:
+  servlet:
+    context-path: /petFriends
+
+spring:
+  profiles:
+    default: local
+
+  application:
+    name: PetFriends
+
+  docker:
+    compose:
+      file: petFriends-docker/compose.yaml
+      lifecycle-management: start_only
+      profiles:
+        active: docker
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/pet_friends
+    username: tauber
+    password: secret
+
+  jpa:
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+#    flyway:
+#        password: secret
+#        user: tauber
+#        url: jdbc:mysql://localhost:3306/pet_friends
+
+axon:
+  axonserver:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, conditions
+  endpoint:
+    health:
+      show-details: always
+
